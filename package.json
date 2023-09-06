@@ -1,0 +1,39 @@
+{
+  "name": "arcanegames",
+  "version": "1.0.0",
+  "description": "A Robust Framework for Weaving Intricate Text-Based Adventures.",
+  "type": "module",
+  "main": "dist/main.js",
+  "exports": "./dist/main.js",
+  "types": "dist/main.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts"
+  },
+  "keywords": [
+    "text-based",
+    "RPG",
+    "framework",
+    "TypeScript",
+    "adventure"
+  ],
+  "author": "Theros <SvalTek>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.4",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "jest": "^29.6.4",
+    "prettier": "^3.0.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  },
+  "files": [
+    "dist/"
+  ]
+}

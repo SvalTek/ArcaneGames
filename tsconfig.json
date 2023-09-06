@@ -1,0 +1,27 @@
+{
+  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "exclude": ["node_modules"],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    //"strict": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "declaration": true,
+    "paths": {
+      "@core/*": ["core/*"],
+      "@utils/*": ["utils/*"],
+      "@models/*": ["models/*"],
+      "@modules/*": ["modules/*"],
+      "@config/*": ["config/*"],
+      "@libs/*": ["libs/*"],
+    }
+  }
+}

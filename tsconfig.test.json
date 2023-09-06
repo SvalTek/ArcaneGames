@@ -1,0 +1,8 @@
+{
+    "extends": "./tsconfig.json",
+    "include": ["./test/**/*.ts"],
+    "compilerOptions": {
+      // Customize compiler options for your tests here if needed
+    }
+  }
+  
