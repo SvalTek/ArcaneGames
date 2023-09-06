@@ -7,10 +7,10 @@ Welcome to the EventAlchemist library, a powerful tool for managing events and e
 - [EventAlchemist](#eventalchemist)
   - [Table of Contents](#table-of-contents)
   - [Usage](#usage)
-    - [Creating Event Namespaces](#creating-event-namespaces)
     - [Decorating Classes](#decorating-classes)
     - [Decorating Methods](#decorating-methods)
     - [Example](#example)
+    - [Creating Event Namespaces](#creating-event-namespaces)
   - [Testing](#testing)
   - [Contributing](#contributing)
 
@@ -20,19 +20,8 @@ Welcome to the EventAlchemist library, a powerful tool for managing events and e
 1. Import the necessary components in your code:
 
    ```typescript
-   import { EventAlchemist, EventNamespace, EventAlchemy, Eventful } from '@libs/EventAlchemist';
+   import { EventAlchemy, EventElixer, Eventful } from '@libs/EventAlchemist';
    ```
-
-
-### Creating Event Namespaces
-
-Event namespaces are essential for organizing and categorizing events. You can create a new event namespace using the `createEventNamespace` method:
-_**Note:** Namespaces MUST be unique. Attempting to create a namespace with a name that already exists will throw an error._
-_**Note:** The `createEventNamespace` method will automatically create a new event namespace if one with the specified name does not already exist._
-
-```typescript
-const eventEmitter = EventAlchemist.createEventNamespace('myNamespace', 'Optional Description');
-```
 
 ### Decorating Classes
 
@@ -66,7 +55,7 @@ myMethod(arg1, arg2) {
 Here's an example of how you can use EventAlchemist:
 
 ```typescript
-import { EventAlchemist, EventNamespace, EventAlchemy, Eventful } from 'event-alchemist';
+import { EventAlchemy, EventElixer, Eventful } from '@libs/EventAlchemist';
 
 @EventAlchemy('myNamespace')
 class MyClass implements Eventful {
@@ -83,6 +72,18 @@ instance.events.on('myEvent', (result, ...args) => {
 
 instance.myMethod('arg1', 'arg2'); // This will emit the 'myEvent' event
 ```
+
+### Creating Event Namespaces
+
+Event namespaces are essential for organizing and categorizing events. You can create a new event namespace using the `createEventNamespace` method:
+_**Note:** Namespaces MUST be unique. Attempting to create a namespace with a name that already exists will throw an error._
+_**Note:** The `createEventNamespace` method will automatically create a new event namespace if one with the specified name does not already exist._
+
+```typescript
+import { EventAlchemist } from '@libs/EventAlchemist';
+const eventEmitter = EventAlchemist.createEventNamespace('myNamespace', 'Optional Description');
+```
+
 
 ## Testing
 
