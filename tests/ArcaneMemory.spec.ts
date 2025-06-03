@@ -238,7 +238,7 @@ describe("ArcaneMemory - selectEntriesByContext", () => {
         store.set("location", "Avalon")
         const context = { location: "Avalon" };
 
-        expect(store.selectEntriesByContext(context)).toEqual({ ava: { location: "Avalon", level: 1 }, location: "Avalon" });
+        expect(store.selectEntriesByContext(context)).toEqual({ ava: { location: "Avalon", level: 1 } });
     });
    
 });
