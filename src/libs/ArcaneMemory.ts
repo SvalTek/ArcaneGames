@@ -159,7 +159,7 @@ export class ArcaneMemory {
       }
     });
 
-    this.events.emit('setMultiple', data);
+    this.events.emit('setMultiple', { ...data, timerInfo });
   }
 
   /**
@@ -385,10 +385,11 @@ export class ArcaneMemory {
    * @returns True if the context matches the value, false otherwise.
    */
   isContextMatch(context: Record<string, unknown>, memoryValue: unknown): boolean {
-    return Object.entries(context).every(([key, value]) => {
-      const memoryEntry = this.store.get(key);
-      return memoryEntry === undefined || memoryEntry === value;
-    });
+    if (typeof memoryValue !== 'object' || memoryValue === null) {
+      return false;
+    }
+    const entry = memoryValue as Record<string, unknown>;
+    return Object.entries(context).every(([key, value]) => entry[key] === value);
   }
 
   /**

@@ -105,6 +105,7 @@ export function EventElixer(
       if (eventEmitter) {
         eventEmitter.emit(name, result, ...eventArgs, ...args);
       }
+      return result;
     };
     return descriptor;
   };
