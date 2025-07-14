@@ -3,7 +3,8 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "ESNext",
-    "module": "commonjs",
+    "module": "esnext",
+    "moduleResolution": "node",
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./src",
@@ -15,6 +16,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "declaration": true,
+    "types": ["node"],
     "paths": {
       "@core/*": ["core/*"],
       "@utils/*": ["utils/*"],

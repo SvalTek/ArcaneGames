@@ -3,3 +3,7 @@ export * from './libs/ChronoWarden';
 export * from './libs/EventAlchemist';
 export * from './libs/ConversationEngine';
 export * from './commands';
+export * from './plugins/Plugin';
+export * from './plugins/PluginManager';
+export * from './story/StoryEngine';
+export * from './multiplayer/MultiplayerServer';

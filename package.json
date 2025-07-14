@@ -2,7 +2,7 @@
   "name": "arcanegames",
   "version": "1.0.0",
   "description": "A Robust Framework for Weaving Intricate Text-Based Adventures.",
-  "type": "commonjs",
+  "type": "module",
   "main": "dist/main.js",
   "exports": "./dist/main.js",
   "types": "dist/main.d.ts",
@@ -23,6 +23,7 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.4",
+    "@types/node": "^24.0.13",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
     "eslint": "^8.48.0",
@@ -38,5 +39,7 @@
   ],
   "dependencies": {
     "yaml": "^2.8.0"
+    "@types/ws": "^8.18.1",
+    "ws": "^8.18.3"
   }
 }
