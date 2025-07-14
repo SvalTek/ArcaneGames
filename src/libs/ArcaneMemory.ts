@@ -1,19 +1,55 @@
 import { EventEmitter } from 'events';
-import { ChronoWarden, ChronoWardenInfo } from "./ChronoWarden"
-
-export interface ArcaneMemory {
-  events: ArcaneMemoryEvents;
-}
+import { ChronoWarden, ChronoWardenInfo } from './ChronoWarden';
 
 export interface ArcaneMemoryEvents extends EventEmitter {
   on(event: 'created', listener: () => void): this;
-  on(event: 'set', listener: (key: string, value: unknown, timerInfo: ChronoWardenInfo) => void): this;
-  on(event: 'get', listener: (key: string, value: unknown, timerInfo: ChronoWardenInfo) => void): this;
-  on(event: 'deleted', listener: (key: string, value: unknown, timerInfo: ChronoWardenInfo) => void): this;
+  on(
+    event: 'set',
+    listener: (
+      key: string,
+      value: unknown,
+      timerInfo: ChronoWardenInfo,
+    ) => void,
+  ): this;
+  on(
+    event: 'get',
+    listener: (
+      key: string,
+      value: unknown,
+      timerInfo: ChronoWardenInfo,
+    ) => void,
+  ): this;
+  on(
+    event: 'deleted',
+    listener: (
+      key: string,
+      value: unknown,
+      timerInfo: ChronoWardenInfo,
+    ) => void,
+  ): this;
   on(event: 'cleared', listener: () => void): this;
-  on(event: 'setMultiple', listener: (data: { [key: string]: any, timerInfo: { [key: string]: ChronoWardenInfo } }) => void): this;
-  on(event: 'serialized', listener: (objStore: { [key: string]: any }, timerInfo: { [key: string]: ChronoWardenInfo }) => void): this;
-  on(event: 'deserialized', listener: (objStore: { [key: string]: any }, timerInfo: { [key: string]: ChronoWardenInfo }, jsonStr: string) => void): this;
+  on(
+    event: 'setMultiple',
+    listener: (data: {
+      [key: string]: unknown;
+      timerInfo: { [key: string]: ChronoWardenInfo };
+    }) => void,
+  ): this;
+  on(
+    event: 'serialized',
+    listener: (
+      objStore: { [key: string]: unknown },
+      timerInfo: { [key: string]: ChronoWardenInfo },
+    ) => void,
+  ): this;
+  on(
+    event: 'deserialized',
+    listener: (
+      objStore: { [key: string]: unknown },
+      timerInfo: { [key: string]: ChronoWardenInfo },
+      jsonStr: string,
+    ) => void,
+  ): this;
 }
 
 /**
@@ -33,13 +69,13 @@ export class ArcaneMemory {
   }
 
   /**
-   * Retrieves a value from the data store by its unique key identifier. 
+   * Retrieves a value from the data store by its unique key identifier.
    * Additionally, updates or resets the timer associated with the key if it exists.
    * @param key - A unique string identifier used to retrieve the value.
-   * @param resetExpireInSec - [Optional] Specifies a new expiration time in seconds. 
+   * @param resetExpireInSec - [Optional] Specifies a new expiration time in seconds.
    * If supplied, the associated timer will be reset to this new expiration duration.
    * @throws {Error} Throws an error if the key is not of type 'string'.
-   * @returns The value associated with the key, or `undefined` if the key does not exist or 
+   * @returns The value associated with the key, or `undefined` if the key does not exist or
    * its associated timer has expired.
    * @emits 'get' event, with the key, value, and timer state as arguments, when a value is successfully retrieved.
    */
@@ -47,7 +83,7 @@ export class ArcaneMemory {
     if (typeof key !== 'string') throw new Error('Invalid key type');
 
     const value = this.store.get(key) as T | undefined;
-    let timer = this.timers.get(key);
+    const timer = this.timers.get(key);
 
     if (timer) {
       const remainingTime = timer.get(); // Always update the timer
@@ -69,20 +105,20 @@ export class ArcaneMemory {
   }
 
   /**
-   * Stores or updates a key-value pair within the data store. If the `expireInSec` parameter is 
+   * Stores or updates a key-value pair within the data store. If the `expireInSec` parameter is
    * provided, a timer will either be created or updated for the specified key.
    * @param key - A unique string identifier to associate with the value.
    * @param value - The value to be stored in association with the provided key.
-   * @param expireInSec - [Optional] Specifies a new expiration time for the key in seconds. 
+   * @param expireInSec - [Optional] Specifies a new expiration time for the key in seconds.
    * If a timer already exists for the key, it will be reset to this new value.
    * @throws {Error} Throws an error if the key is not of type 'string'.
    * @emits 'set' event with the key, value, and current timer state as arguments when a value is successfully set.
    * @returns {void}
-  */
+   */
   set<T>(key: string, value: T, expireInSec?: number): void {
     if (typeof key !== 'string') throw new Error('Invalid key type');
 
-    let timerInfo = this.timers.get(key)
+    let timerInfo = this.timers.get(key);
     if (expireInSec) {
       if (timerInfo) {
         timerInfo.set(expireInSec);
@@ -98,17 +134,17 @@ export class ArcaneMemory {
 
   /**
    * Determines the presence of a specific key within the store.
-   * 
+   *
    * @param key - The unique string identifier to search for.
    * @returns {boolean} Returns `true` if the key exists in the store, `false` otherwise.
-  */
+   */
   has(key: string): boolean {
     return this.store.has(key);
   }
 
   /**
    * Extinguishes a key-value pair from the data store, also removing any associated timer.
-   * 
+   *
    * @param key - The unique string identifier of the key-value pair to be deleted.
    * @throws {Error} Throws an error if the key is not of type 'string'.
    * @emits 'deleted' event with the key, value, and current timer state as arguments after successful deletion.
@@ -126,12 +162,12 @@ export class ArcaneMemory {
   }
 
   /**
-   * Annihilates all key-value pairs from the data store, resetting it to an empty state. 
+   * Annihilates all key-value pairs from the data store, resetting it to an empty state.
    * All timers are also cleared in the process.
-   * 
+   *
    * @emits 'cleared' event when the store is successfully cleared.
    * @returns {void}
-  */
+   */
   clear(): void {
     this.store.clear();
     this.timers.clear();
@@ -145,7 +181,7 @@ export class ArcaneMemory {
    * @remarks This method is not recommended for large stores.
    * @see {@link ArcaneMemory#set}
    */
-  setMultiple(data: { [key: string]: any }, updateTimers = false): void {
+  setMultiple(data: Record<string, unknown>, updateTimers = false): void {
     const timerInfo: { [key: string]: ChronoWardenInfo } = {};
     Object.entries(data).forEach(([key, value]) => {
       if (typeof key !== 'string') throw new Error('Invalid key type');
@@ -177,7 +213,7 @@ export class ArcaneMemory {
    * @returns A JSON string representation of the store.
    */
   serialize(): string {
-    const obj: { [key: string]: any } = {};
+    const obj: Record<string, unknown> = {};
     const timerInfo: { [key: string]: ChronoWardenInfo } = {};
 
     // Serialize the store
@@ -201,7 +237,7 @@ export class ArcaneMemory {
    */
   deserialize(jsonStr: string): void {
     const parsed = JSON.parse(jsonStr);
-    const objStore: { [key: string]: any } = parsed.store;
+    const objStore: Record<string, unknown> = parsed.store;
     const timerInfo: { [key: string]: ChronoWardenInfo } = parsed.timers;
 
     // Restore the store
@@ -213,7 +249,12 @@ export class ArcaneMemory {
     // Restore the timers
     this.timers.clear();
     for (const [key, value] of Object.entries(timerInfo)) {
-      const timer = new ChronoWarden(value.timeRemaining, value.initialTime, value.lastUpdated, value.created);
+      const timer = new ChronoWarden(
+        value.timeRemaining,
+        value.initialTime,
+        value.lastUpdated,
+        value.created,
+      );
       this.timers.set(key, timer);
     }
 
@@ -226,14 +267,22 @@ export class ArcaneMemory {
    * @param updateTimers - [Optional] If true, the associated timers will be updated. (Defaults to true)
    * @returns An object containing the selected key-value pairs.
    */
-  getSelectedKeys(keys: string[], updateTimers = true): Record<string, unknown> {
-    return Object.fromEntries(keys.map(key => {
-      const timer = this.timers.get(key);
-      if (timer && updateTimers) {
-        timer.get();  // Update the timer
+  getSelectedKeys(
+    keys: string[],
+    updateTimers = true,
+  ): Record<string, unknown> {
+    const entries: [string, unknown][] = [];
+    for (const key of keys) {
+      const value = this.store.get(key);
+      if (value !== undefined) {
+        const timer = this.timers.get(key);
+        if (timer && updateTimers) {
+          timer.get();
+        }
+        entries.push([key, value]);
       }
-      return [key, this.store.get(key)];
-    }));
+    }
+    return Object.fromEntries(entries);
   }
 
   /**
@@ -242,10 +291,10 @@ export class ArcaneMemory {
    * @returns An array containing all keys in the store.
    * @remarks This method is not recommended for large stores.
    * @see {@link ArcaneMemory#selectKeys}
-  */
+   */
   getAllKeys(updateTimers = false): string[] {
     if (updateTimers) {
-      this.timers.forEach((timer, key) => timer.get());
+      this.timers.forEach((timer, _key) => timer.get());
     }
     return Array.from(this.store.keys());
   }
@@ -256,10 +305,10 @@ export class ArcaneMemory {
    * @returns An array containing all values in the store.
    * @remarks This method is not recommended for large stores.
    * @see {@link ArcaneMemory#selectValues}
-  */
-  getAllValues(updateTimers = false): any[] {
+   */
+  getAllValues(updateTimers = false): unknown[] {
     if (updateTimers) {
-      this.timers.forEach((timer, key) => timer.get());
+      this.timers.forEach((timer, _key) => timer.get());
     }
     return Array.from(this.store.values());
   }
@@ -275,12 +324,12 @@ export class ArcaneMemory {
    * @see {@link ArcaneMemory#getAllValues}
    * @see {@link ArcaneMemory#getMultiple}
    */
-  getAllEntries(updateTimers = false): Record<string, any> {
-    const allEntries: Record<string, any> = {};
+  getAllEntries(updateTimers = false): Record<string, unknown> {
+    const allEntries: Record<string, unknown> = {};
     for (const [key, value] of this.store.entries()) {
       const timer = this.timers.get(key);
       if (timer && updateTimers) {
-        timer.get();  // Update the timer
+        timer.get(); // Update the timer
       }
       allEntries[key] = value;
     }
@@ -292,14 +341,17 @@ export class ArcaneMemory {
    * @param filter - The filter function to use.
    * @param updateTimers - [Optional] If true, the associated timers will be updated. (Defaults to true)
    * @returns An array containing the selected key-value pairs.
-  */
-  selectKeys(filter: (key: string, value: any) => boolean, updateTimers = true): string[] {
+   */
+  selectKeys(
+    filter: (key: string, value: unknown) => boolean,
+    updateTimers = true,
+  ): string[] {
     const selectedKeys: string[] = [];
     for (const [key, value] of this.store.entries()) {
       if (filter(key, value)) {
         const timer = this.timers.get(key);
         if (timer && updateTimers) {
-          timer.get();  // Update the timer
+          timer.get(); // Update the timer
         }
         selectedKeys.push(key);
       }
@@ -313,14 +365,17 @@ export class ArcaneMemory {
    * @param updateTimers - [Optional] If true, the associated timers will be updated. (Defaults to true)
    * @returns An array containing the selected values.
    * @see {@link ArcaneMemory#selectKeys}
-  */
-  selectValues(filter: (key: string, value: any) => boolean, updateTimers = true): any[] {
-    const selectedValues: any[] = [];
+   */
+  selectValues(
+    filter: (key: string, value: unknown) => boolean,
+    updateTimers = true,
+  ): unknown[] {
+    const selectedValues: unknown[] = [];
     for (const [key, value] of this.store.entries()) {
       if (filter(key, value)) {
         const timer = this.timers.get(key);
         if (timer && updateTimers) {
-          timer.get();  // Update the timer
+          timer.get(); // Update the timer
         }
         selectedValues.push(value);
       }
@@ -335,14 +390,17 @@ export class ArcaneMemory {
    * @returns An object containing the selected key-value pairs.
    * @see {@link ArcaneMemory#selectKeys}
    * @see {@link ArcaneMemory#selectValues}
-  */
-  selectEntries(filter: (key: string, value: any) => boolean, updateTimers = true): { [key: string]: any } {
-    const selectedData: { [key: string]: any } = {};
+   */
+  selectEntries(
+    filter: (key: string, value: unknown) => boolean,
+    updateTimers = true,
+  ): Record<string, unknown> {
+    const selectedData: Record<string, unknown> = {};
     for (const [key, value] of this.store.entries()) {
       if (filter(key, value)) {
         const timer = this.timers.get(key);
         if (timer && updateTimers) {
-          timer.get();  // Update the timer
+          timer.get(); // Update the timer
         }
         selectedData[key] = value;
       }
@@ -356,7 +414,7 @@ export class ArcaneMemory {
    * @returns The next key in the store.
    * @see {@link ArcaneMemory#selectPreviousKey}
    * @see {@link ArcaneMemory#selectKeys}
-  */
+   */
   selectNextKey(key: string): string | undefined {
     const keys = Array.from(this.store.keys());
     const index = keys.indexOf(key);
@@ -370,7 +428,7 @@ export class ArcaneMemory {
    * @returns The previous key in the store.
    * @see {@link ArcaneMemory#selectNextKey}
    * @see {@link ArcaneMemory#selectKeys}
-  */
+   */
   selectPreviousKey(key: string): string | undefined {
     const keys = Array.from(this.store.keys());
     const index = keys.indexOf(key);
@@ -384,20 +442,28 @@ export class ArcaneMemory {
    * @param value - The value to use.
    * @returns True if the context matches the value, false otherwise.
    */
-  isContextMatch(context: Record<string, unknown>, memoryValue: unknown): boolean {
+  isContextMatch(
+    context: Record<string, unknown>,
+    memoryValue: unknown,
+  ): boolean {
     if (typeof memoryValue !== 'object' || memoryValue === null) {
       return false;
     }
     const entry = memoryValue as Record<string, unknown>;
-    return Object.entries(context).every(([key, value]) => entry[key] === value);
+    return Object.entries(context).every(
+      ([key, value]) => entry[key] === value,
+    );
   }
 
   /**
    * selects entries based on a context object.
    * @param context - The context object to use.
    */
-  selectEntriesByContext(context: Record<string, unknown>): { [key: string]: any } {
-    return this.selectEntries((key, value) => this.isContextMatch(context, value));
+  selectEntriesByContext(
+    context: Record<string, unknown>,
+  ): Record<string, unknown> {
+    return this.selectEntries((key, value) =>
+      this.isContextMatch(context, value),
+    );
   }
-
 }

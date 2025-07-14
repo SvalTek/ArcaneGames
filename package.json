@@ -2,7 +2,7 @@
   "name": "arcanegames",
   "version": "1.0.0",
   "description": "A Robust Framework for Weaving Intricate Text-Based Adventures.",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/main.js",
   "exports": "./dist/main.js",
   "types": "dist/main.d.ts",

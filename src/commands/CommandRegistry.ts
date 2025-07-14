@@ -25,7 +25,8 @@ export class CommandRegistry {
   }
 
   async loadCommand(filePath: string, category?: string): Promise<void> {
-    const relative = './' + path.relative(__dirname, filePath).replace(/\\/g, '/');
+    const relative =
+      './' + path.relative(__dirname, filePath).replace(/\\/g, '/');
     const mod = await import(relative);
     const CommandClass = mod.default;
     if (typeof CommandClass !== 'function') {
@@ -54,6 +55,6 @@ export class CommandRegistry {
   }
 
   list(): Command[] {
-    return Array.from(this.commands.values()).map(c => c.instance);
+    return Array.from(this.commands.values()).map((c) => c.instance);
   }
 }
