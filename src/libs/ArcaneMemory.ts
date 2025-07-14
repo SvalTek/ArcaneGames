@@ -322,7 +322,6 @@ export class ArcaneMemory {
    * @see {@link ArcaneMemory#getSelectedKeys}
    * @see {@link ArcaneMemory#getAllKeys}
    * @see {@link ArcaneMemory#getAllValues}
-   * @see {@link ArcaneMemory#getMultiple}
    */
   getAllEntries(updateTimers = false): Record<string, unknown> {
     const allEntries: Record<string, unknown> = {};
