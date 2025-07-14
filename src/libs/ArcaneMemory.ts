@@ -337,6 +337,27 @@ export class ArcaneMemory {
   }
 
   /**
+   * Retrieves multiple keys from the store.
+   * @param keys - An array of keys to retrieve.
+   * @param updateTimers - [Optional] If true, associated timers will be updated. (Defaults to true)
+   * @returns An object containing the found key-value pairs.
+   */
+  getMultiple(keys: string[], updateTimers = true): Record<string, unknown> {
+    const data: Record<string, unknown> = {};
+    for (const key of keys) {
+      const value = this.store.get(key);
+      if (value !== undefined) {
+        const timer = this.timers.get(key);
+        if (timer && updateTimers) {
+          timer.get();
+        }
+        data[key] = value;
+      }
+    }
+    return data;
+  }
+
+  /**
    * Select keys based on a filter function.
    * @param filter - The filter function to use.
    * @param updateTimers - [Optional] If true, the associated timers will be updated. (Defaults to true)

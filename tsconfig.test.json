@@ -2,6 +2,7 @@
     "extends": "./tsconfig.json",
     "include": ["./tests/**/*.ts"],
     "compilerOptions": {
-      "types": ["jest"]
+      "types": ["jest", "node"],
+      "module": "esnext"
     }
 }

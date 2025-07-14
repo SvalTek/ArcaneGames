@@ -1,8 +1,8 @@
 # ArcaneGames
 
-ArcaneGames is a lightweight TypeScript framework for building text-based RPGs.
+ArcaneGames is a lightweight **ESM-first** TypeScript framework for building text-based RPGs.
 It provides utilities for managing game state, timers, an event system and a
-simple command architecture.
+simple command architecture. New modules lay the groundwork for plugins, a story engine and multiplayer support.
 
 ## Installation
 
@@ -27,7 +27,7 @@ npm run lint
 ## Usage Example
 
 ```ts
-import { ArcaneMemory } from './dist/libs/ArcaneMemory';
+import { ArcaneMemory } from './dist/libs/ArcaneMemory.js';
 
 const memory = new ArcaneMemory();
 memory.set('location', 'Avalon');
@@ -37,7 +37,7 @@ console.log(memory.get('location')); // -> 'Avalon'
 Commands can be registered and executed using `CommandRegistry`:
 
 ```ts
-import { CommandRegistry } from './dist/commands/CommandRegistry';
+import { CommandRegistry } from './dist/commands/CommandRegistry.js';
 
 const registry = new CommandRegistry();
 await registry.loadCommands('./dist/commands');

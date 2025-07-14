@@ -1,6 +1,6 @@
-- Plugin Architecture: Designing a way for others to extend your framework with custom modules or plugins.
-- Dynamic Story Engine: Implementing a more complex narrative engine that can adapt to player choices in real-time.
-- Multiplayer Support: support for multiple players in the same world, websockets for chat?.
+- Plugin Architecture: Basic `Plugin` interface and manager implemented.
+- Dynamic Story Engine: Initial `StoryEngine` class added.
+- Multiplayer Support: WebSocket server scaffold provided.
 - State Serialization: Allowing the game state to be saved and loaded, so players can pick up where they left off.
 - Interactive UI: Creating a more interactive user interface, maybe an abtract interfact that allows basid rendering and text input like an old MUD.
 - AI NPCs: Need to create NPCs with dynamic behaviors.
