@@ -6,7 +6,7 @@ interface TestClass extends Eventful { }
 
 @EventAlchemy("test")
 class TestClass {
-  @EventElixer("test", (result) => result, "test event")
+  @EventElixer("test", function (result, ...args) { return result }, "test event")
   testEvent(numA: number, numB: number) {
     return numA + numB;
   }

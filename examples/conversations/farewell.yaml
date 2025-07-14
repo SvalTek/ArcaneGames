@@ -1,0 +1,8 @@
+id: farewell
+participants:
+  - hero
+  - villager
+!mixin mixins/farewell_options.yaml
+dialogue:
+  - speaker: villager
+    text: "Farewell."
