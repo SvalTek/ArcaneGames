@@ -1,0 +1,5 @@
+options:
+  - text: "Say goodbye"
+    dialogue:
+      - speaker: hero
+        text: "Goodbye!"

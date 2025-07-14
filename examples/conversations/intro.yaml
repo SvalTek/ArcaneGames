@@ -1,0 +1,15 @@
+id: intro
+participants:
+  - hero
+  - villager
+dialogue:
+  - speaker: villager
+    text: "Greetings, traveler."
+options:
+  - text: "Respond politely"
+    dialogue:
+      - speaker: hero
+        text: "Hello there."
+      - !include responses/greeting.yaml
+    trigger: onGreet
+    nextConversation: farewell
