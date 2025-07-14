@@ -242,3 +242,24 @@ describe("ArcaneMemory - selectEntriesByContext", () => {
     });
    
 });
+
+describe("ArcaneMemory - getMultiple", () => {
+    const store = new ArcaneMemory();
+
+    beforeEach(() => {
+        store.clear();
+    });
+
+    it("should retrieve multiple existing keys", () => {
+        store.set('a', 1);
+        store.set('b', 2);
+        const data = store.getMultiple(['a', 'b']);
+        expect(data).toEqual({ a: 1, b: 2 });
+    });
+
+    it("should ignore keys that do not exist", () => {
+        store.set('a', 1);
+        const data = store.getMultiple(['a', 'c']);
+        expect(data).toEqual({ a: 1 });
+    });
+})
