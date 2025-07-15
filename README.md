@@ -1,13 +1,22 @@
 # ArcaneGames
 
 ArcaneGames is a lightweight **ESM-first** TypeScript framework for building text-based RPGs.
-It provides utilities for managing game state, timers, an event system and a
-simple command architecture. New modules lay the groundwork for plugins, a story engine and multiplayer support.
+It provides utilities for managing game state, timers, an event system and a simple command architecture. New modules lay the groundwork for plugins, a story engine and multiplayer support.
+
+## Supported Platforms
+
+ArcaneGames targets **Node.js 18+** on 64-bit Windows and Linux. The optional
+`canvas` dependency requires additional native libraries. If you do not intend
+to run the canvas demo you can skip optional packages during install.
 
 ## Installation
 
 ```bash
-npm install
+# install dependencies without optional native modules
+npm install --omit=optional
+
+# to include optional packages such as `canvas`
+# simply run `npm install`
 ```
 
 ## Building & Testing
@@ -57,15 +66,24 @@ Detailed documentation for each library can be found in the
 
 ArcaneGames is released under the [MIT License](LICENSE).
 
-## Canvas Movement Example
+## CLI Example
 
-A minimal example demonstrating rendering with a Node canvas and arrow-key movement is provided in `examples/game/canvas-example.ts`.
+A simple terminal-based demo can be run without any native dependencies:
 
 ```bash
 # build the library
 npm run build
 
-# run the example with ts-node
+# run the CLI demo with ts-node
+npx ts-node examples/game/cli-example.ts
+```
+
+## Canvas Movement Example
+
+The optional canvas demo located in `examples/game/canvas-example.ts` requires the `canvas` package and system libraries. Run it only if you have the prerequisites installed.
+
+```bash
+npm run build
 npx ts-node examples/game/canvas-example.ts
 ```
 
