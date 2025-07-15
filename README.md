@@ -44,6 +44,10 @@ await registry.loadCommands('./dist/commands');
 console.log(await registry.execute('ping', { args: [] }));
 ```
 
+## Plugin Development
+
+Plugins are regular Node modules implementing the `Plugin` interface. If you write plugins in TypeScript, compile them with `tsc` and load the generated `.js` files (for example from `./dist/plugins`). You may also run your game with a transpiler like **ts-node** to import `.ts` plugins directly.
+
 ## Documentation
 
 Detailed documentation for each library can be found in the

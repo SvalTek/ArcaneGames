@@ -11,11 +11,22 @@ export class PluginManager {
     const files = await fs.readdir(dir);
     for (const file of files) {
       if (!file.endsWith('.js') && !file.endsWith('.ts')) continue;
-      const mod = await import(path.join(dir, file));
-      const PluginClass = mod.default || mod.Plugin;
-      if (typeof PluginClass === 'function') {
-        const plugin: Plugin = new PluginClass();
-        this.plugins.set(plugin.name, plugin);
+      const fullPath = path.join(dir, file);
+      try {
+        const mod = await import(fullPath);
+        const PluginClass = mod.default || mod.Plugin;
+        if (typeof PluginClass === 'function') {
+          const plugin: Plugin = new PluginClass();
+          this.plugins.set(plugin.name, plugin);
+        }
+      } catch (err: any) {
+        if (file.endsWith('.ts') && err?.code === 'ERR_UNKNOWN_FILE_EXTENSION') {
+          console.warn(
+            `PluginManager: unable to load TypeScript plugin "${file}". Compile it to JavaScript or run with a TypeScript loader such as ts-node.`
+          );
+          continue;
+        }
+        throw err;
       }
     }
   }
