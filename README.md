@@ -27,7 +27,7 @@ npm run lint
 ## Usage Example
 
 ```ts
-import { ArcaneMemory } from './dist/libs/ArcaneMemory.js';
+import { ArcaneMemory } from 'arcanegames';
 
 const memory = new ArcaneMemory();
 memory.set('location', 'Avalon');
@@ -37,7 +37,7 @@ console.log(memory.get('location')); // -> 'Avalon'
 Commands can be registered and executed using `CommandRegistry`:
 
 ```ts
-import { CommandRegistry } from './dist/commands/CommandRegistry.js';
+import { CommandRegistry } from 'arcanegames';
 
 const registry = new CommandRegistry();
 await registry.loadCommands('./dist/commands');
