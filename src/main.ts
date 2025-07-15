@@ -7,3 +7,6 @@ export * from './plugins/Plugin';
 export * from './plugins/PluginManager';
 export * from './story/StoryEngine';
 export * from './multiplayer/MultiplayerServer';
+export * from './game/MapElement';
+export * from './game/Player';
+export * from './game/GameMap';
