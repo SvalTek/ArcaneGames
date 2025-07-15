@@ -2,5 +2,5 @@
 - Dynamic Story Engine: Initial `StoryEngine` class added.
 - Multiplayer Support: WebSocket server scaffold provided.
 - State Serialization: Allowing the game state to be saved and loaded, so players can pick up where they left off.
-- Interactive UI: Creating a more interactive user interface, maybe an abtract interfact that allows basid rendering and text input like an old MUD.
+ - Interactive UI: Creating a more interactive user interface, maybe an abstract interface that allows basic rendering and text input like an old MUD.
 - AI NPCs: Need to create NPCs with dynamic behaviors.
