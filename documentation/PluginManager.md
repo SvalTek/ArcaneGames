@@ -14,3 +14,7 @@ const engine = new StoryEngine();
 const registry = new CommandRegistry();
 await plugins.init(engine, registry);
 ```
+
+## TypeScript Plugins
+
+`PluginManager` expects compiled JavaScript modules. If your plugins are written in TypeScript, run the TypeScript compiler first and load the resulting `.js` files (e.g. from `./dist/plugins`). Alternatively, execute your project with a transpiler such as **ts-node** so `.ts` files can be imported directly.
