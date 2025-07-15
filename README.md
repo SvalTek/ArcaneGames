@@ -52,3 +52,17 @@ Detailed documentation for each library can be found in the
 ## License
 
 ArcaneGames is released under the [MIT License](LICENSE).
+
+## Canvas Movement Example
+
+A minimal example demonstrating rendering with a Node canvas and arrow-key movement is provided in `examples/game/canvas-example.ts`.
+
+```bash
+# build the library
+npm run build
+
+# run the example with ts-node
+npx ts-node examples/game/canvas-example.ts
+```
+
+Use your arrow keys to move the `@` player character around the map. Walking over a green interactable floor tile toggles its color.
